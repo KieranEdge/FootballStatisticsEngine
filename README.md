@@ -1,4 +1,4 @@
-# FootballStatisticsEngine
+# Football Statistics Engine
 
 > Some people say that football is a matter of life and death\
 > I assure you, it's much more serious than that
