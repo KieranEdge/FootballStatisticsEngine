@@ -1,7 +1,8 @@
 # FootballStatisticsEngine
 
-> Some people say that football is a matter of life and death
+> Some people say that football is a matter of life and death\
 > I assure you, it's much more serious than that
+
 _Bill Shankly_
 
 This is a passion project dedicated to demonstrating and deploying a variety of football statistics. 
