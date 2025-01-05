@@ -8,11 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.72" />
+    <Compile Remove="OutputData\**" />
+    <EmbeddedResource Remove="OutputData\**" />
+    <None Remove="OutputData\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="OutputData\" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.72" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>

@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-
-namespace DataGatherer.DataAccessing
+﻿public static class JSONWriter
 {
-    public static class JSONWriter
+    public static void SaveAllTablesAsJson(string fileName, List<List<Dictionary<string, string>>> tablesFromHtml)
     {
-        public static void HtmlToJson(string html, string fileName)
+        var allTables = tablesFromHtml;
+        var json = System.Text.Json.JsonSerializer.Serialize(allTables, new System.Text.Json.JsonSerializerOptions
         {
-            // Serialize the object to a JSON string
-            string jsonString = JsonSerializer.Serialize(html, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(fileName, jsonString);
-        }
+            WriteIndented = true
+        });
+        File.WriteAllText(fileName, json);
     }
 }
