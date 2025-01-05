@@ -26,10 +26,24 @@ namespace DataGatherer.DataAccessing
 
             foreach (var table in tables)
             {
+                // Extract headers
                 var headers = table.SelectNodes(".//thead//th")
                     ?.Select(th => th.InnerText.Trim())
                     .ToList();
 
+                if (headers == null || headers.Count == 0)
+                {
+                    // If no <thead>, attempt to use the first row (<tr>) as headers
+                    var headerRow = table.SelectSingleNode(".//tr");
+                    if (headerRow != null)
+                    {
+                        headers = headerRow.SelectNodes(".//th | .//td")
+                            ?.Select(cell => cell.InnerText.Trim())
+                            .ToList();
+                    }
+                }
+
+                // Extract rows
                 var rows = table.SelectNodes(".//tr");
                 var tableData = new List<Dictionary<string, string>>();
 
@@ -40,26 +54,17 @@ namespace DataGatherer.DataAccessing
                     // Skip rows without table data cells
                     if (cells == null) continue;
 
-                    if (headers != null && headers.Count > 0)
+                    var rowDict = new Dictionary<string, string>();
+
+                    // Handle header mismatch: Match only up to the smaller of the two counts
+                    for (int i = 0; i < Math.Max(headers?.Count ?? 0, cells.Count); i++)
                     {
-                        var rowDict = new Dictionary<string, string>();
-                        for (int i = 0; i < headers.Count; i++)
-                        {
-                            var header = headers[i];
-                            var cellValue = i < cells.Count ? cells[i].InnerText.Trim() : string.Empty;
-                            rowDict[header] = cellValue;
-                        }
-                        tableData.Add(rowDict);
+                        string header = headers != null && i < headers.Count ? headers[i] : $"Column{i + 1}";
+                        string cellValue = i < cells.Count ? cells[i].InnerText.Trim() : string.Empty;
+                        rowDict[header] = cellValue;
                     }
-                    else
-                    {
-                        var rowDict = new Dictionary<string, string>();
-                        for (int i = 0; i < cells.Count; i++)
-                        {
-                            rowDict[$"Column{i + 1}"] = cells[i].InnerText.Trim();
-                        }
-                        tableData.Add(rowDict);
-                    }
+
+                    tableData.Add(rowDict);
                 }
 
                 allTablesData.Add(tableData);
