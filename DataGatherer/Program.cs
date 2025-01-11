@@ -34,7 +34,6 @@ DatabaseStorage.MatchReportDatabaseCreator(teamName, startYear, endYear, extract
 Console.WriteLine("The program is complete");
 Console.ReadKey();
 
-.................................
 
 
 

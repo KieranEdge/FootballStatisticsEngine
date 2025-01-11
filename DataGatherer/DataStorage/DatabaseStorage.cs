@@ -56,7 +56,7 @@ namespace DataGatherer.DataStorage
                     subTableCommand.Parameters.AddWithValue("@GoalsAgainst", GetDbValue(match["GA"]?.Split(" ")[0]));
                     subTableCommand.Parameters.AddWithValue("@Opponent", GetDbValue(match["Opponent"]));
                     subTableCommand.Parameters.AddWithValue("@Possession", GetDbValue(match["Poss"]));
-                    subTableCommand.Parameters.AddWithValue("@Attendance", GetDbValue(ParseAttendance(match["Attendance"])));
+                    subTableCommand.Parameters.AddWithValue("@Attendance", ParseAttendance(match["Attendance"]));
                     subTableCommand.Parameters.AddWithValue("@Captain", GetDbValue(match["Captain"]));
                     subTableCommand.Parameters.AddWithValue("@Formation", GetDbValue(match["Formation"]));
                     subTableCommand.Parameters.AddWithValue("@OppFormation", GetDbValue(match["Opp Formation"]));
@@ -71,18 +71,22 @@ namespace DataGatherer.DataStorage
             }
         }
 
-        public object GetDbValue(string value)
+        public static object GetDbValue(string value)
         {
             return string.IsNullOrEmpty(value) ? DBNull.Value : value;
         }
 
-        public object ParseAttendance(string attendance)
+        public static object ParseAttendance(string attendance)
         {
             if (string.IsNullOrEmpty(attendance))
+            {
                 return DBNull.Value;
+            }
 
             if (int.TryParse(attendance.Replace(",", ""), out int result))
+            {
                 return result;
+            }
 
             return DBNull.Value;
         }
