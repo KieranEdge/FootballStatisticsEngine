@@ -44,24 +44,25 @@ namespace DataGatherer.DataStorage
                 foreach (var match in matches)
                 {
                     var subTableCommand = new SqlCommand(insertSubTableQuery, connection);
-                    subTableCommand.Parameters.AddWithValue("@MatchDate", match["Date"]);
-                    subTableCommand.Parameters.AddWithValue("@StartTime", match["Time"]);
-                    subTableCommand.Parameters.AddWithValue("@Competition", match["Comp"]);
-                    subTableCommand.Parameters.AddWithValue("@Round", match["Round"]);
-                    subTableCommand.Parameters.AddWithValue("@Day", match["Day"]);
-                    subTableCommand.Parameters.AddWithValue("@Venue", match["Venue"]);
-                    subTableCommand.Parameters.AddWithValue("@Result", match["Result"]);
-                    subTableCommand.Parameters.AddWithValue("@GoalsFor", match["GF"].Split(" ")[0]);
-                    subTableCommand.Parameters.AddWithValue("@GoalsAgainst", match["GA"].Split(" ")[0]);
-                    subTableCommand.Parameters.AddWithValue("@Opponent", match["Opponent"]);
-                    subTableCommand.Parameters.AddWithValue("@Possession", match["Poss"]);
-                    subTableCommand.Parameters.AddWithValue("@Attendance", int.Parse(match["Attendance"].Replace(",","")));
-                    subTableCommand.Parameters.AddWithValue("@Captain", match["Captain"]);
-                    subTableCommand.Parameters.AddWithValue("@Formation", match["Formation"]);
-                    subTableCommand.Parameters.AddWithValue("@OppFormation", match["Opp Formation"]);
-                    subTableCommand.Parameters.AddWithValue("@Referee", match["Referee"]);
-                    subTableCommand.Parameters.AddWithValue("@MatchReport", match["Match Report"]);
-                    subTableCommand.Parameters.AddWithValue("@Notes", match["Notes"]);
+
+                    subTableCommand.Parameters.AddWithValue("@MatchDate", GetDbValue(match["Date"]));
+                    subTableCommand.Parameters.AddWithValue("@StartTime", GetDbValue(match["Time"]));
+                    subTableCommand.Parameters.AddWithValue("@Competition", GetDbValue(match["Comp"]));
+                    subTableCommand.Parameters.AddWithValue("@Round", GetDbValue(match["Round"]));
+                    subTableCommand.Parameters.AddWithValue("@Day", GetDbValue(match["Day"]));
+                    subTableCommand.Parameters.AddWithValue("@Venue", GetDbValue(match["Venue"]));
+                    subTableCommand.Parameters.AddWithValue("@Result", GetDbValue(match["Result"]));
+                    subTableCommand.Parameters.AddWithValue("@GoalsFor", GetDbValue(match["GF"]?.Split(" ")[0]));
+                    subTableCommand.Parameters.AddWithValue("@GoalsAgainst", GetDbValue(match["GA"]?.Split(" ")[0]));
+                    subTableCommand.Parameters.AddWithValue("@Opponent", GetDbValue(match["Opponent"]));
+                    subTableCommand.Parameters.AddWithValue("@Possession", GetDbValue(match["Poss"]));
+                    subTableCommand.Parameters.AddWithValue("@Attendance", GetDbValue(ParseAttendance(match["Attendance"])));
+                    subTableCommand.Parameters.AddWithValue("@Captain", GetDbValue(match["Captain"]));
+                    subTableCommand.Parameters.AddWithValue("@Formation", GetDbValue(match["Formation"]));
+                    subTableCommand.Parameters.AddWithValue("@OppFormation", GetDbValue(match["Opp Formation"]));
+                    subTableCommand.Parameters.AddWithValue("@Referee", GetDbValue(match["Referee"]));
+                    subTableCommand.Parameters.AddWithValue("@MatchReport", GetDbValue(match["Match Report"]));
+                    subTableCommand.Parameters.AddWithValue("@Notes", GetDbValue(match["Notes"]));
 
                     subTableCommand.ExecuteNonQuery();
                 }
@@ -69,7 +70,24 @@ namespace DataGatherer.DataStorage
                 Console.WriteLine($"Data saved successfully for {teamName} in {competition} for the {startYear}/{endYear} Season");
             }
         }
-       
+
+        public object GetDbValue(string value)
+        {
+            return string.IsNullOrEmpty(value) ? DBNull.Value : value;
+        }
+
+        public object ParseAttendance(string attendance)
+        {
+            if (string.IsNullOrEmpty(attendance))
+                return DBNull.Value;
+
+            if (int.TryParse(attendance.Replace(",", ""), out int result))
+                return result;
+
+            return DBNull.Value;
+        }
+
+
     }
 
     public static class MatchReportTableCreator

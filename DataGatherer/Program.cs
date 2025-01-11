@@ -7,8 +7,8 @@ using DataGatherer.DataAccessing;
 using DataGatherer.DataStorage;
 
 Console.WriteLine("The purpose of this program is to gather data from a remote website and save it to a JSON object");
-int startYear = 2022;
-int endYear = 2023;
+int startYear = 2019;
+int endYear = 2020;
 string teamName = "Sheffield Wednesday";
 
 
@@ -24,7 +24,7 @@ List<Dictionary<string, string>> extractedReports = await MatchReportExtracter.E
 string competition = extractedReports[0]["Comp"];
 
 //// Saving all of the Table Data to JSON
-//JsonStorage.SaveToJson(extractedReports, "draftAttempt.json");
+JsonStorage.SaveToJson(extractedReports, "draftAttempt.json");
 
 
 //// Saving all data to a database
@@ -33,4 +33,190 @@ DatabaseStorage.MatchReportDatabaseCreator(teamName, startYear, endYear, extract
 
 Console.WriteLine("The program is complete");
 Console.ReadKey();
+
+.................................
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
