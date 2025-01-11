@@ -1,6 +1,6 @@
 ﻿namespace DataGatherer.DataAccessing
 {
-    public static class DataAccessing
+    public class DataAccessing
     {
         /// <summary>
         /// Class for returning entire HTML elements from a webpage
