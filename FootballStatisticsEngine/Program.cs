@@ -2,9 +2,3 @@
 using System.Text.Json.Serialization;
 
 Console.WriteLine("Welcome to the football statistics engine application!");
-
-public class DataGathering
-{
-    
-    private string _baseUrl;
-}
