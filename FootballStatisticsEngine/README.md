@@ -8,4 +8,6 @@ To use the engine you will need to either:
 
 
 The first option can be performed in cmd on Windows by running the command.
-   setx FOOTBALL_DATABASE_CONNECTION_STRING "{Your_Connection_String}"
+```
+setx FOOTBALL_DATABASE_CONNECTION_STRING "{Your_Connection_String}"
+```
