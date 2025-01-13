@@ -45,7 +45,7 @@ namespace DataGatherer.DataStorage
 
                 //// Saving all data to a database
                 MatchReportTableCreator.CreateMatchReportTable(year, year + 1);
-                DatabaseStorage.MatchReportDatabaseCreator(_teamName, year, year + 1, extractedReports, competition);
+                MatchReportDatabaseStorage.MatchReportDatabaseCreator(_teamName, year, year + 1, extractedReports, competition);
             }
         }
 

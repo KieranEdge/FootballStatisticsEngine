@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataGatherer.DataStorage
 {
-    public static class DatabaseStorage
+    public static class MatchReportDatabaseStorage
     {
         public static void MatchReportDatabaseCreator(string teamName, int startYear, int endYear, List<Dictionary<string, string>> matches, string competition)
         {
