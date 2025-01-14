@@ -16,7 +16,7 @@ namespace DataGatherer.DataManipulation
             _htmlContent = htmlContent;
         }
 
-        public void HtmlToJsonWriter()
+        public void HtmlToJsonWriter(string fileName)
         {
             // Load the HTML into HtmlDocument
             var htmlDoc = new HtmlDocument();
@@ -29,7 +29,7 @@ namespace DataGatherer.DataManipulation
             string json = JsonConvert.SerializeObject(htmlJson, Formatting.Indented);
 
             // Write the JSON to a file
-            File.WriteAllText("output.json", json);
+            File.WriteAllText(fileName, json);
             Console.WriteLine("HTML converted to JSON successfully!");
         }
 
