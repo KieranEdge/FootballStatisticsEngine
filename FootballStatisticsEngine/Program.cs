@@ -27,7 +27,5 @@ using (var context = new MatchReportDbContext(connectionString))
     var reports = context.GetReportsFromYear("MatchReports_2020_2021");
 
     foreach (var report in reports)
-    {
-        Console.WriteLine($"Match: {report.MatchID}, Date: {report.MatchDate}");
-    }
+    { Console.WriteLine(report.Opponent); }
 }
